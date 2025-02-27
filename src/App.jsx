@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Chat from "./components/Chat.jsx";
 import Login from "./components/Login.jsx";
-import Register from "./components/Register.jsx";
 import Home from "./components/Home";
+import Register from "./components/Registers/Register.jsx";
 const App = () => {
   const [userId, setUserId] = useState(null);
 
