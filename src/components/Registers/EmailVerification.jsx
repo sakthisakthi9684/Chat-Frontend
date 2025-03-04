@@ -13,6 +13,8 @@ const EmailVerification = ({ setEmail, goToOtp }) => {
       });
 
       console.log("OTP Sent Successfully:", response.data);
+      setEmail(emailInput);
+      goToOtp();
     } catch (error) {
       console.error(
         "Error Sending OTP:",
