@@ -5,8 +5,12 @@ const OtpVerification = ({ email, goToRegister }) => {
   const [otp, setOtp] = useState("");
 
   const handleSubmit = async () => {
-    const res = await verifyOtp({ email, otp });
-    if (res.data.success) {
+    console.log("paylaod", { email, otp: String(otp) });
+
+    const res = await verifyOtp({ email, otp: String(otp) });
+    console.log("response", res);
+
+    if (res.data.message == "OTP verified successfully") {
       goToRegister();
     } else {
       alert("Invalid OTP!");
