@@ -8,10 +8,15 @@ const Login = ({ setUserId }) => {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    const res = await loginUser({ email, password });
-    if (res.data.success) {
+    try {
+      const res = await loginUser({ email, password });
+
       setUserId(res.data.userId);
       navigate("/chat");
+      console.log(res);
+      sessionStorage.setItem("userId", res.data.username);
+    } catch (error) {
+      console.error("Login Error:", error);
     }
   };
 

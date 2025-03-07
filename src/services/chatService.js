@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/messages";
+// const API_URL = "http://localhost:5000/messages";
+const API_URL = "https://chat-backend-yqcz.onrender.com";
 
 // Function to send a message
 export const sendMessage = async (messageData) => {

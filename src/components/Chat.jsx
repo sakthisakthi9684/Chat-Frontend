@@ -2,12 +2,17 @@ import { useState, useEffect } from "react";
 import { sendMessage } from "../services/chatService";
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:5000");
+const socket = io("https://chat-backend-yqcz.onrender.com");
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
-  const [sender, setSender] = useState("User1"); // Static sender for now
+  sessionStorage.setItem("user", "JohnDoe");
+
+  const userId = sessionStorage.getItem("userId");
+  console.log("Stored User ID:", userId);
+
+  const [sender, setSender] = useState(userId); // Static sender for now
 
   useEffect(() => {
     socket.on("message", (messageData) => {
@@ -21,9 +26,9 @@ const Chat = () => {
 
   const handleSend = async () => {
     if (!input.trim()) return;
-    
+
     const messageData = { sender, message: input };
-    
+
     try {
       await sendMessage(messageData);
       socket.emit("sendMessage", messageData);
@@ -36,7 +41,14 @@ const Chat = () => {
   return (
     <div style={{ padding: "20px", maxWidth: "400px", margin: "auto" }}>
       <h2>Chat Room</h2>
-      <div style={{ border: "1px solid black", height: "200px", overflowY: "auto", padding: "10px" }}>
+      <div
+        style={{
+          border: "1px solid black",
+          height: "200px",
+          overflowY: "auto",
+          padding: "10px",
+        }}
+      >
         {messages.map((msg, index) => (
           <div key={index}>
             <strong>{msg.sender}:</strong> {msg.message}
@@ -50,7 +62,9 @@ const Chat = () => {
         placeholder="Type a message..."
         style={{ width: "80%", padding: "5px" }}
       />
-      <button onClick={handleSend} style={{ marginLeft: "10px" }}>Send</button>
+      <button onClick={handleSend} style={{ marginLeft: "10px" }}>
+        Send
+      </button>
     </div>
   );
 };
