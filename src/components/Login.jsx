@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/authService";
+import toast from "react-hot-toast"; // Import toast
 
 const Login = ({ setUserId }) => {
   const [email, setEmail] = useState("");
@@ -8,15 +9,26 @@ const Login = ({ setUserId }) => {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    if (!email || !password) {
+      toast.error("Please enter both email and password.");
+      return;
+    }
+
     try {
+      console.log("Email:", email);
+      console.log("Password:", password);
+
       const res = await loginUser({ email, password });
 
+      console.log("Login Response:", res);
       setUserId(res.data.userId);
-      navigate("/chat");
-      console.log(res);
       sessionStorage.setItem("userId", res.data.username);
+
+      toast.success("Login successful!");
+      navigate("/chat");
     } catch (error) {
       console.error("Login Error:", error);
+      toast.error(error.response?.data?.message || "Login failed. Please try again.");
     }
   };
 
@@ -29,14 +41,14 @@ const Login = ({ setUserId }) => {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2 mb-4 rounded border border-gray-500"
+          className="w-full p-2 mb-4 rounded border border-gray-500 bg-gray-700 text-white"
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 mb-4 rounded border border-gray-500"
+          className="w-full p-2 mb-4 rounded border border-gray-500 bg-gray-700 text-white"
         />
         <button
           onClick={handleLogin}
