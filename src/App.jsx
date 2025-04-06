@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Chat from "./components/Chat.jsx";
 import Login from "./components/Login.jsx";
 import Home from "./components/Home";
-import Register from "./components/Register.jsx/";
+import Register from "./components/Registers/Register.jsx"; // Import Register component
 import Navbar from "./components/Navbar/Navbar.jsx"; // Import Navbar
 import toast, { Toaster } from "react-hot-toast"; // Import toast
 
