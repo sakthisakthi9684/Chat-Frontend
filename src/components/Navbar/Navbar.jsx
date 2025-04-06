@@ -13,9 +13,9 @@ const Navbar = ({ userId, setUserId }) => {
   // Dynamic navbar text based on current page
   let navbarTitle = "CHAT-APP";
   if (location.pathname === "/login") {
-    navbarTitle = "WELCOME BACK TO";
+    navbarTitle = "WELCOME BACK TO CHAT-APP";
   } else if (location.pathname === "/register") {
-    navbarTitle = "WELCOME TO";
+    navbarTitle = "WELCOME TO CHAT-APP";
   }
 
   return (
