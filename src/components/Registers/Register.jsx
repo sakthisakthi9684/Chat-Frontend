@@ -1,8 +1,8 @@
   import React, { useState } from "react";
+  import EmailVerification from "../Registers/EmailVerification.jsx";
+  import OtpVerification from "../Registers/OtpVerification.jsx";
+  import RegisterForm from "../Registers/RegisterForm.jsx";
 
-import EmailVerification from "../Registers/EmailVerification.jsx";
-  import OtpVerification from "./OtpVerification.JSX";
-  import RegisterForm from "./RegisterForm.JSX";
 
   const Register = () => {
     const [step, setStep] = useState(1);
