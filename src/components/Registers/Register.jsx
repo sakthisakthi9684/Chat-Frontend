@@ -1,5 +1,6 @@
   import React, { useState } from "react";
-  import EmailVerification from "./EmailVerification.JSX";
+
+import EmailVerification from "../Registers/EmailVerification.jsx";
   import OtpVerification from "./OtpVerification.JSX";
   import RegisterForm from "./RegisterForm.JSX";
 
