@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Chat from "./components/Chat.jsx";
 import Login from "./components/Login.jsx";
 import Home from "./components/Home";
-import Register from "./components/Registers/RegisterForm.jsx";
+import Register from "./components/Register.jsx/";
 import Navbar from "./components/Navbar/Navbar.jsx"; // Import Navbar
 import toast, { Toaster } from "react-hot-toast"; // Import toast
 
@@ -12,7 +12,7 @@ const App = () => {
 
   return (
     <Router>
-      <Toaster  /> {/* Add Toaster for notifications */}
+      <Toaster /> {/* Add Toaster for notifications */}
       <Navbar userId={userId} setUserId={setUserId} />
       <div className="pt-16">
         <Routes>
