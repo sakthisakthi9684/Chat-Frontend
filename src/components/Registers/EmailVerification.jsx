@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { FaSpinner } from "react-icons/fa"; // Import Spinner Icon
 import toast from "react-hot-toast"; // Import toast
+import AxiosInstance from "../../util/AxiosInstance";
 
 const EmailVerification = ({ setEmail, goToOtp }) => {
   const [emailInput, setEmailInput] = useState("");
@@ -15,7 +15,7 @@ const EmailVerification = ({ setEmail, goToOtp }) => {
 
     setIsLoading(true); // Start loading
     try {
-      const response = await axios.post("http://localhost:5000/user/send-otp", {
+      const response = await AxiosInstance.post("/user/send-otp", {
         email: emailInput,
       });
 
