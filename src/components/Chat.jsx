@@ -56,7 +56,8 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    const ws = new WebSocket("wss://visionx.quantumsharq.com/api/ws");
+    const ws = new WebSocket("wss://chat-backend-yqcz.onrender.com/ws");
+
 
     ws.onopen = () => {
       console.log("WebSocket connection established");
