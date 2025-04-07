@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom"; // For navigation
+import { useNavigate } from "react-router-dom";
 import AxiosInstance from "../util/AxiosInstance";
 
 const Chat = () => {
@@ -11,15 +11,16 @@ const Chat = () => {
   sessionStorage.setItem("user", "JohnDoe"); // Temporary user for testing
   const userId = sessionStorage.getItem("userId") || "JohnDoe";
 
+  const fetchMessages = async () => {
+    try {
+      const response = await AxiosInstance.get(`/msg/messages`);
+      setMessages(response.data);
+    } catch (error) {
+      console.error("Failed to fetch messages:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchMessages = async () => {
-      try {
-        const response = await AxiosInstance.get(`/msg/messages`);
-        setMessages(response.data);
-      } catch (error) {
-        console.error("Failed to fetch messages:", error);
-      }
-    };
     fetchMessages();
   }, []);
 
@@ -53,6 +54,31 @@ const Chat = () => {
     sessionStorage.clear();
     navigate("/login");
   };
+
+  useEffect(() => {
+    const ws = new WebSocket("wss://visionx.quantumsharq.com/api/ws");
+
+    ws.onopen = () => {
+      console.log("WebSocket connection established");
+    };
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      fetchMessages(); // Now works!
+    };
+
+    ws.onclose = () => {
+      console.log("WebSocket connection closed");
+    };
+
+    ws.onerror = (error) => {
+      console.error("WebSocket error:", error);
+    };
+
+    return () => {
+      ws.close();
+    };
+  }, []);
 
   return (
     <div className="flex flex-col h-screen bg-gray-900 text-white">

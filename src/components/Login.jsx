@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/authService";
 import toast from "react-hot-toast"; // Import toast
+import { FaSpinner } from "react-icons/fa";
 
 const Login = ({ setUserId }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false); // 🟡 Loading state
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -13,6 +15,7 @@ const Login = ({ setUserId }) => {
       toast.error("Please enter both email and password.");
       return;
     }
+    setLoading(true); // Start loading
 
     try {
       console.log("Email:", email);
@@ -28,7 +31,11 @@ const Login = ({ setUserId }) => {
       navigate("/chat");
     } catch (error) {
       console.error("Login Error:", error);
-      toast.error(error.response?.data?.message || "Login failed. Please try again.");
+      toast.error(
+        error.response?.data?.message || "Login failed. Please try again."
+      );
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -50,11 +57,20 @@ const Login = ({ setUserId }) => {
           onChange={(e) => setPassword(e.target.value)}
           className="w-full p-2 mb-4 rounded border border-gray-500 bg-gray-700 text-white"
         />
+
         <button
           onClick={handleLogin}
-          className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg"
+          className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg flex justify-center items-center gap-2"
+          disabled={loading}
         >
-          Login
+          {loading ? (
+            <>
+              <FaSpinner className="animate-spin text-white" size={20} />
+              <span>Logging in...</span>
+            </>
+          ) : (
+            "Login"
+          )}
         </button>
       </div>
     </div>

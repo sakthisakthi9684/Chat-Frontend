@@ -4,7 +4,7 @@ import { registerUser } from "../../services/authService";
 import { FaEye, FaEyeSlash, FaSpinner } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast"; // Import toast
 
-const RegisterForm = ({ email }) => {
+const   RegisterForm = ({ email }) => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
